@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333; /* Dark background for contrast */
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll on small screens */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px; /* Max width for larger screens */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #FFD700; /* Gold-ish color for title */
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        #start-screen h1 {
+             font-size: 3em;
+        }
+
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.2em;
+            margin: 10px 5px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            min-width: 120px; /* Ensure buttons have a minimum width */
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        #start-game-btn {
+            background-color: #007bff; /* Blue */
+            font-size: 1.5em;
+            padding: 20px 40px;
+        }
+        #start-game-btn:hover {
+            background-color: #0056b3;
+        }
+
+
+        #game-screen {
+            display: none; /* Hidden by default */
+        }
+
+        .choices-display {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            min-height: 120px; /* Ensure space for emojis */
+        }
+
+        .choice-area {
+            flex: 1;
+            padding: 15px;
+            margin: 0 10px;
+            border-radius: 10px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em; /* Larger emoji */
+        }
+        
+        #player-choice-display {
+            background-color: #28a745; /* Green */
+        }
+
+        #computer-choice-display {
+            background-color: #dc3545; /* Red */
+        }
+        
+        .choice-area .label {
+            font-size: 0.4em; /* Smaller label text */
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+
+        .player-options {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+            justify-content: center;
+        }
+        
+        .player-options .button {
+            background-color: #ffc107; /* Yellow */
+            color: #333;
+        }
+        .player-options .button:hover {
+            background-color: #e0a800;
+        }
+
+        #result-message {
+            font-size: 1.5em;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 30px; /* Ensure space for message */
+            font-weight: bold;
+        }
+
+        .win {
+            background-color: #28a745; /* Green */
+            color: white;
+        }
+        .lose {
+            background-color: #dc3545; /* Red */
+            color: white;
+        }
+        .draw {
+            background-color: #6c757d; /* Gray */
+            color: white;
+        }
+
+        #play-again-btn {
+            background-color: #17a2b8; /* Teal */
+            display: none; /* Hidden by default */
+        }
+        #play-again-btn:hover {
+            background-color: #138496;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 2em;
+            }
+             #start-screen h1 {
+                font-size: 2.5em;
+            }
+            .button {
+                font-size: 1em;
+                padding: 12px 20px;
+                min-width: 100px;
+            }
+            #start-game-btn {
+                font-size: 1.2em;
+                padding: 15px 30px;
+            }
+            .choice-area {
+                font-size: 2.5em;
+                min-height: 80px;
+            }
+            #result-message {
+                font-size: 1.2em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="start-screen" class="container">
+        <h1>ROCK PAPER SCISSORS</h1>
+        <button id="start-game-btn" class="button">START GAME</button>
+    </div>
+
+    <div id="game-screen" class="container">
+        <h1>ROCK PAPER SCISSORS</h1>
+        
+        <div class="choices-display">
+            <div id="player-choice-display" class="choice-area">
+                <span id="player-choice-emoji">❓</span>
+                <span class="label">YOU</span>
+            </div>
+            <div id="computer-choice-display" class="choice-area">
+                <span id="computer-choice-emoji">❓</span>
+                <span class="label">CPU</span>
+            </div>
+        </div>
+
+        <div id="result-message">Make your move!</div>
+
+        <div class="player-options">
+            <button class="button choice-btn" data-choice="rock">✊ Rock</button>
+            <button class="button choice-btn" data-choice="paper">🖐️ Paper</button>
+            <button class="button choice-btn" data-choice="scissors">✌️ Scissors</button>
+        </div>
+        
+        <button id="play-again-btn" class="button">Play Again</button>
+    </div>
+
+    <script>
+        const startScreen = document.getElementById('start-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const startGameBtn = document.getElementById('start-game-btn');
+        
+        const playerChoiceEmoji = document.getElementById('player-choice-emoji');
+        const computerChoiceEmoji = document.getElementById('computer-choice-emoji');
+        const resultMessage = document.getElementById('result-message');
+        const choiceButtons = document.querySelectorAll('.choice-btn');
+        const playAgainBtn = document.getElementById('play-again-btn');
+
+        const choices = ['rock', 'paper', 'scissors'];
+        const emojis = {
+            rock: '✊',
+            paper: '🖐️',
+            scissors: '✌️'
+        };
+
+        startGameBtn.addEventListener('click', () => {
+            startScreen.style.display = 'none';
+            gameScreen.style.display = 'flex'; // Use flex for vertical centering of game content
+            gameScreen.style.flexDirection = 'column';
+            gameScreen.style.justifyContent = 'center';
+            resetGameDisplay();
+        });
+
+        choiceButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const playerChoice = button.dataset.choice;
+                const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+                playRound(playerChoice, computerChoice);
+            });
+        });
+
+        playAgainBtn.addEventListener('click', resetGameDisplay);
+
+        function playRound(player, computer) {
+            playerChoiceEmoji.textContent = emojis[player];
+            computerChoiceEmoji.textContent = emojis[computer];
+
+            let resultText = '';
+            resultMessage.classList.remove('win', 'lose', 'draw');
+
+            if (player === computer) {
+                resultText = "It's a DRAW!";
+                resultMessage.classList.add('draw');
+            } else if (
+                (player === 'rock' && computer === 'scissors') ||
+                (player === 'paper' && computer === 'rock') ||
+                (player === 'scissors' && computer === 'paper')
+            ) {
+                resultText = `You WIN! ${capitalize(player)} beats ${capitalize(computer)}.`;
+                resultMessage.classList.add('win');
+            } else {
+                resultText = `You LOSE! ${capitalize(computer)} beats ${capitalize(player)}.`;
+                resultMessage.classList.add('lose');
+            }
+            resultMessage.textContent = resultText;
+            
+            choiceButtons.forEach(btn => btn.style.display = 'none'); // Hide choice buttons
+            playAgainBtn.style.display = 'inline-block'; // Show play again button
+        }
+        
+        function resetGameDisplay() {
+            playerChoiceEmoji.textContent = '❓';
+            computerChoiceEmoji.textContent = '❓';
+            resultMessage.textContent = 'Make your move!';
+            resultMessage.classList.remove('win', 'lose', 'draw');
+            playAgainBtn.style.display = 'none';
+            choiceButtons.forEach(btn => btn.style.display = 'inline-block'); // Show choice buttons
+        }
+
+        function capitalize(word) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        }
+
+    </script>
+</body>
+</html>
